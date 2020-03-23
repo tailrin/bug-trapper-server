@@ -6,7 +6,6 @@ const IssuesRouter = express.Router();
 IssuesRouter
     .route('/')
     .get((req, res, next) => {
-        console.log(req.query.user_id)
         IssuesService.getAllIssues(
             req.app.get('db'),
             req.query.user_id
@@ -19,15 +18,15 @@ IssuesRouter
     .post(jsonParser, (req, res, next) => {
         if(!!req.content){
             const { issue_id, content, date_created} = req.body;
-            const newIssueNote = { issue_id, content, date_created };
-            IssuesService.insertIssueNote(
+            const newIssueissue = { issue_id, content, date_created };
+            IssuesService.insertIssueissue(
                 req.app.get('db'),
-                newIssueNote
-            ).then(issue_note => {
+                newIssueissue
+            ).then(issue_issue => {
                 res
                     .status(201)
-                    .location(`/issue/${issue_id}/issue_notes`)
-                    .json(issue_note)
+                    .location(`/issue/${issue_id}/issue_issues`)
+                    .json(issue_issue)
               })
               .catch(next)
         } else {
@@ -50,3 +49,22 @@ IssuesRouter
         }
         
     })
+
+IssuesRouter
+  .route('/:issues_id')
+  .get((req, res, next) => {
+    console.log(req.params.issue_id)
+    const knexInstance = req.app.get('db')
+    IssuesService.getById(knexInstance, req.params.issue_id)
+      .then(issue => {
+        if (!issue) {
+          return res.status(404).json({
+            error: { message: `issue doesn't exist` }
+          })
+        }
+        res.json(issue)
+      })
+      .catch(next)
+  })
+
+    module.exports = IssuesRouter;

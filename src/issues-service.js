@@ -1,6 +1,5 @@
 const IssuesService = {
     getAllIssues(knex, user_id){
-        console.log(user_id)
         return knex
             .select('*')
             .from('issues')
@@ -8,6 +7,7 @@ const IssuesService = {
     },
 
     getById(knex, id){
+        console.log(id)
         return knex
             .select('*')
             .from('issues')

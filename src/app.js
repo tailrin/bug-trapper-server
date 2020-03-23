@@ -5,7 +5,7 @@ const cors = require('cors');
 const helmet = require('helmet');
 const NODE_ENV = process.env.NODE_ENV
 const winston = require('winston');
-
+const IssuesRouter = require('./routers/issues-routers')
 
 const logger = winston.createLogger({
 	level: 'info',
@@ -30,6 +30,7 @@ const morganOption = (NODE_ENV === 'production')
 app.use(morgan(morganOption))
 app.use(helmet())
 app.use(cors())
+app.use('/issues', IssuesRouter)
 
 app.use(function errorHandler(error, req, res, next){
 	let response

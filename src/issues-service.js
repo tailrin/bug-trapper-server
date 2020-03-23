@@ -7,7 +7,7 @@ const IssuesService = {
     },
 
     getById(knex, id){
-        console.log(id)
+
         return knex
             .select('*')
             .from('issues')

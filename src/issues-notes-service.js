@@ -6,11 +6,11 @@ const IssueNotesService = {
             .where('issue_id', issue_id)
     },
 
-    getById(knex, id){
+    getByDateCreated(knex, date_created){
         return knex
             .select('*')
             .from('issue_notes')
-            .where('id', id)
+            .where('date_created', date_created)
             .first()
     },
 
@@ -22,13 +22,7 @@ const IssueNotesService = {
             .then(rows => {
                 return rows[0]
             })
-    },
-
-    updateIssue(knex, id, newIssueNotes) {
-        return knex('issue_notes')
-        .where({ id })
-        .update(newIssueNotes)
-    },
+    }
 }
 
 module.exports = IssueNotesService;

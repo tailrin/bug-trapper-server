@@ -16,6 +16,14 @@ const ProjectsService = {
             .first()
     },
 
+    getByDateCreated(knex, date_created) {
+        return knex
+            .select('*')
+            .from('projects')
+            .where('date_created', date_created)
+            .first()
+    },
+
     insertProject(knex, newProject) {
         return knex 
             .insert(newProject)

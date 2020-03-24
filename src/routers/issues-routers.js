@@ -16,8 +16,11 @@ IssuesRouter
         .catch(next)
     })
     .post(jsonParser, (req, res, next) => {
-        const { project_id, user_id, date_created, description, status } = req.body;
-        const newIssue = {date_created, description, project_id, status, user_id};
+        const { project_id, user_id, description, status } = req.body;
+        const date_created = new Date().toISOString();
+        const date_modified = new Date().toISOString();
+        const newIssue = {date_created, description, project_id, status, user_id, date_modified};
+        console.log(req.body)
         IssuesService.insertIssue(
             req.app.get('db'),
             newIssue
@@ -28,10 +31,10 @@ IssuesRouter
             ).then(issue => {
                 res
                 .status(201)
-                .location(`issue/${issue.id}`)
+                .location(`issues/${issue.id}`)
                 .json(issue)
-            })
-        })
+            }).catch(next)
+        }).catch(next)
     })
 
 IssuesRouter
@@ -57,3 +60,4 @@ IssuesRouter
   })
 
     module.exports = IssuesRouter;
+

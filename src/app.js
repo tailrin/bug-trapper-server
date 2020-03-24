@@ -3,9 +3,13 @@ const express = require('express');
 const morgan = require('morgan');
 const cors = require('cors');
 const helmet = require('helmet');
-const NODE_ENV = process.env.NODE_ENV
+const {NODE_ENV} = require('./config')
 const winston = require('winston');
 const IssuesRouter = require('./routers/issues-routers')
+const ProjectsRouter = require('./routers/projects-routers')
+const IssuesNotesRouter = require('./routers/issue-notes-routers')
+const usersRouter = require('./users/users-router')
+const authRouter = require('./auth/auth-router')
 
 const logger = winston.createLogger({
 	level: 'info',
@@ -31,6 +35,10 @@ app.use(morgan(morganOption))
 app.use(helmet())
 app.use(cors())
 app.use('/issues', IssuesRouter)
+app.use('/projects', ProjectsRouter)
+app.use('/issue_notes', IssuesNotesRouter)
+app.use('/api/auth', authRouter)
+app.use('/api/users', usersRouter)
 
 app.use(function errorHandler(error, req, res, next){
 	let response

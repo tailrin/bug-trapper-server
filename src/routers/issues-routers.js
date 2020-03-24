@@ -2,9 +2,11 @@ const express = require('express');
 const jsonParser = express.json();
 const IssuesService = require('../issues-service');
 const IssuesRouter = express.Router();
+const { requireAuth } = require('../middleware/jwt-auth')
 
 IssuesRouter
     .route('/')
+    .all(requireAuth)
     .get((req, res, next) => {
         IssuesService.getAllIssues(
             req.app.get('db'),
@@ -39,6 +41,7 @@ IssuesRouter
 
 IssuesRouter
   .route('/:issues_id')
+  .all(requireAuth)
   .get((req, res, next) => {
     const knexInstance = req.app.get('db')
     IssuesService.getById(knexInstance, req.params.issues_id)

@@ -1,9 +1,5 @@
 BEGIN;
 
-INSERT INTO users (user_name, credentials)
-VALUES
-    ('John', '$2a$16$HduZ2iKeJmDgoTXE1GbB.eeb85tI4Z6EX3o2/aZkZGxRv1BNF3wku');
-
 INSERT INTO projects (user_id, name, date_created)
 VALUES
     (1, 'Ars Technica', now()),

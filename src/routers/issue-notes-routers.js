@@ -2,9 +2,10 @@ const express = require('express');
 const jsonParser = express.json();
 const IssueNotesService = require('../issues-notes-service');
 const IssueNotesRouter = express.Router();
-
+const { requireAuth } = require('../middleware/jwt-auth')
 IssueNotesRouter
     .route('/:issue_id')
+    .all(requireAuth)
     .get((req, res, next) => {
         console.log(req.params)
         IssueNotesService.getAllIssueNotes(

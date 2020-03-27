@@ -40,11 +40,11 @@ IssuesRouter
     })
 
 IssuesRouter
-  .route('/:issues_id')
+  .route('/:issue_id')
   .all(requireAuth)
   .get((req, res, next) => {
     const knexInstance = req.app.get('db')
-    IssuesService.getById(knexInstance, req.params.issues_id)
+    IssuesService.getById(knexInstance, req.params.issue_id)
       .then(async issue => {
           const response = {
               issue: issue,
@@ -60,6 +60,26 @@ IssuesRouter
         res.json(response)
       })
       .catch(next)
+  })
+  .put(jsonParser, (req, res, next) => {
+      const knex = req.app.get('db')
+      const {issue_id} = req.params
+      const {field, field_value} = req.body
+      IssuesService.updateIssue(knex, issue_id, field, field_value)
+      .then(response => {
+          res.json(response)
+      })
+      .catch(next)
+  })
+  .post(jsonParser, (req, res, next) => {
+    const knex = req.app.get('db')
+    const {issue_id} = req.params
+    const {content} = req.body
+    const date_created = new Date().toISOString();
+    const newNote = {issue_id: issue_id, content: content, date_created: date_created}
+    IssuesService.insertIssueNote(knex, newNote)
+    .then(response => res.json(response))
+    .catch(next)
   })
 
     module.exports = IssuesRouter;

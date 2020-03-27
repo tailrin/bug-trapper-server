@@ -50,11 +50,16 @@ const IssuesService = {
             })
     },
 
-    updateIssue(knex, id, newIssueFields) {
+    updateIssue(knex, id, field, field_value) {
         return knex('issues')
         .where({ id })
-        .update(newIssueFields)
+        .update(field, field_value)
+        .returning('*')
+        .then(rows => {
+            return rows[0]
+        })
     },
+
 }
 
 module.exports = IssuesService;

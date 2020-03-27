@@ -36,7 +36,7 @@ const ProjectsService = {
 
     deleteProject(knex, id){
         return knex('projects')
-            .where({id})
+            .where('id', id)
             .delete()
     }
 }

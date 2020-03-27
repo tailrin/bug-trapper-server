@@ -39,12 +39,12 @@ ProjectsRouter
       }).catch(next)
     })
     .delete(jsonParser, async (req, res, next) => {
-      const id = req.body
+      const {id} = req.body
       const knex = req.app.get('db')
       ProjectsService.deleteProject(knex, id).then(project => {
         res
         .status(201)
-        .json(response)
+        .json(project)
       }).catch(next)
     })
 

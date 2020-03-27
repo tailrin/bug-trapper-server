@@ -1,8 +1,7 @@
 const express = require('express');
 const jsonParser = express.json();
-const ProjectsService = require('../Projects-service');
+const ProjectsService = require('../projects-service');
 const ProjectsRouter = express.Router();
-const IssuesService = require('../issues-service')
 const { requireAuth } = require('../middleware/jwt-auth')
 
 ProjectsRouter

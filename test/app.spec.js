@@ -4,8 +4,9 @@ const config = require('../src/config')
 const helper = require('./test-helpers')
 require('dotenv').config();
 
-describe('App', () => {
 
+describe('App', () => {
+	let db
 	before('make knex instance', () => {
 		db = knex({
 		  client: 'pg',
@@ -17,7 +18,7 @@ describe('App', () => {
 	// after('disconnect from db', () => db.destroy())
 
 	before('seed users', () => {
-		helper.seedUsers(db)
+		return helper.seedUsers(db);
 	})
 
 	it('GET / responds with 200 containing Hello, world!', () => {

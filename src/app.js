@@ -51,7 +51,7 @@ app.use(function errorHandler(error, req, res, next){
 	res.status(500).json(response)
 })
 app.get('/', (req, res) => {
-	res.send('Hello, world!')
+	res.json('Hello, world!')
 })
 
 module.exports = app

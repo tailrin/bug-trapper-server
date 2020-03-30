@@ -35,7 +35,8 @@ CREATE TABLE issues(
     date_created TIMESTAMP NOT NULL,
     date_modified TIMESTAMP NOT NULL,
     description TEXT NOT NULL,
-    status working NOT NULL
+    status working NOT NULL,
+    title TEXT
 );
 
 CREATE TABLE issue_notes(

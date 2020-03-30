@@ -18,11 +18,11 @@ IssuesRouter
         .catch(next)
     })
     .post(jsonParser, (req, res, next) => {
-        const { project_id, user_id, description, status } = req.body;
+        const { project_id, user_id, description, status, title } = req.body;
         const date_created = new Date().toISOString();
         const date_modified = new Date().toISOString();
-        const newIssue = {date_created, description, project_id, status, user_id, date_modified};
-        console.log(req.body)
+        const newIssue = {date_created, description, project_id, status, user_id, date_modified, title};
+        console.log(newIssue)
         IssuesService.insertIssue(
             req.app.get('db'),
             newIssue
@@ -84,3 +84,5 @@ IssuesRouter
 
     module.exports = IssuesRouter;
 
+
+    
